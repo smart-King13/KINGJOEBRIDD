@@ -10,6 +10,7 @@ export interface User {
 export interface Image {
   id: string;
   file_path: string;
+  storage_path?: string;
   is_primary: boolean;
 }
 

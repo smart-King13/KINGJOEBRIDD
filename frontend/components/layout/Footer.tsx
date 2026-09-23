@@ -2,10 +2,32 @@
 
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
+import { useState } from 'react';
 
 export function Footer() {
   const pathname = usePathname();
+  const [email, setEmail] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || subscribeStatus === 'loading') return;
+    
+    setSubscribeStatus('loading');
+    
+    // Simulate API call for newsletter subscription
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    setSubscribeStatus('success');
+    setEmail('');
+    
+    // Reset back to idle after 5 seconds
+    setTimeout(() => {
+      setSubscribeStatus('idle');
+    }, 5000);
+  };
+
   const isHiddenPage = pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/account') || pathname?.startsWith('/admin');
 
   if (isHiddenPage) {
@@ -77,16 +99,31 @@ export function Footer() {
             <p className="text-white/50 text-xs mb-6 max-w-[250px] font-light leading-relaxed">
               Subscribe for exclusive bespoke collections and editorial updates.
             </p>
-            <form className="flex border-b border-white/20 pb-3 group focus-within:border-white transition-colors w-full max-w-sm" onSubmit={(e) => e.preventDefault()}>
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                className="bg-transparent border-none outline-none text-sm text-white placeholder:text-white/30 w-full lg:w-64 font-light text-center lg:text-left"
-              />
-              <button type="button" className="text-white/40 group-focus-within:text-white transition-colors ml-4">
-                <ArrowRight size={18} strokeWidth={1} />
-              </button>
-            </form>
+            {subscribeStatus === 'success' ? (
+              <div className="flex items-center text-white text-sm font-light w-full max-w-sm py-2">
+                <CheckCircle2 size={18} className="mr-3 text-green-400" />
+                Thank you for subscribing!
+              </div>
+            ) : (
+              <form className="flex border-b border-white/20 pb-3 group focus-within:border-white transition-colors w-full max-w-sm" onSubmit={handleSubscribe}>
+                <input 
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Email Address" 
+                  required
+                  disabled={subscribeStatus === 'loading'}
+                  className="bg-transparent border-none outline-none text-sm text-white placeholder:text-white/30 w-full lg:w-64 font-light text-center lg:text-left disabled:opacity-50"
+                />
+                <button type="submit" disabled={!email || subscribeStatus === 'loading'} className="text-white/40 hover:text-white transition-colors ml-4 disabled:opacity-50 flex items-center justify-center">
+                  {subscribeStatus === 'loading' ? (
+                    <div className="h-4 w-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <ArrowRight size={18} strokeWidth={1} />
+                  )}
+                </button>
+              </form>
+            )}
           </div>
 
         </div>

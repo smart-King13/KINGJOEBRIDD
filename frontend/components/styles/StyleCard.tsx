@@ -97,7 +97,7 @@ export function StyleCard({ style }: StyleCardProps) {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              const imgUrl = primaryImage?.url || primaryImage?.storage_path || primaryImage?.file_path;
+              const imgUrl = (primaryImage as any)?.url || (primaryImage as any)?.storage_path || primaryImage?.file_path;
               if (imgUrl) {
                 router.push(`/style-requests/new?external_style=${encodeURIComponent(imgUrl)}`);
               } else {

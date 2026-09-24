@@ -48,7 +48,7 @@ export function SavedStylesClient({ initialStyles, initialMeta, search }: SavedS
     const allStyles = [...initialStyles];
     localSavedStyles.forEach(localStyle => {
       if (!allStyles.find(s => s.id === localStyle.id)) {
-        allStyles.push(localStyle as Style);
+        allStyles.push(localStyle as unknown as Style);
       }
     });
 

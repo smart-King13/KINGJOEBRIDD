@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '@/components/providers/AuthProvider';
 import { AdminGuard } from '@/components/auth/AdminGuard';
+import { useTheme } from '@/components/providers/ThemeProvider';
 import { CommandPalette } from '@/components/admin/CommandPalette';
 import { ThemeToggle } from '@/components/admin/ThemeToggle';
 import { 
@@ -16,6 +17,7 @@ import {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const { user, logout } = useAuth();
+  const { theme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
 
@@ -75,17 +77,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   return (
     <AdminGuard>
-      <div className="flex min-h-screen w-full bg-[var(--color-white)] text-[var(--color-black)]">
+      <div className={theme === 'dark' ? 'dark' : ''}>
+        <div className="flex min-h-screen w-full bg-[var(--color-white)] text-[var(--color-black)]">
         
         {/* Desktop Sidebar */}
         <aside className="hidden md:flex w-72 flex-col border-r border-[var(--color-light-ash)] bg-[var(--color-white)] h-screen fixed left-0 top-0 z-40 motion-safe-transition">
           <div className="p-8 h-24 flex items-center">
-            <Link href="/admin" className="font-display text-xl tracking-widest text-[var(--color-black)] hover:opacity-60 transition-opacity">
-              KINGJOEBRIDD <span className="text-[var(--color-ash)] font-sans text-xs ml-2 tracking-normal uppercase">Admin</span>
+            <Link href="/admin" className="hover:opacity-80 transition-opacity flex items-center">
+              <img src="/images/KJLOGO.png" alt="KINGJOEBRIDD Logo" className="object-contain h-12 w-auto -mr-3" />
+              <div className="flex flex-col">
+                <span className="font-display text-lg tracking-widest text-[var(--color-black)] font-bold">KINGJOEBRIDD</span>
+                <span className="text-[var(--color-ash)] font-sans text-[10px] tracking-widest uppercase mt-0.5">Admin</span>
+              </div>
             </Link>
           </div>
           
-          <div className="flex-1 overflow-y-auto px-8 py-4 custom-scrollbar">
+          <div className="flex-1 overflow-y-auto px-8 py-4 hide-scrollbar">
               {navigationGroups.map((group, gIdx) => (
                 <div key={group.title} className={gIdx > 0 ? "mt-8" : ""}>
                   <div className="text-[10px] font-bold tracking-[0.2em] text-[var(--color-ash)] uppercase mb-4 px-2">
@@ -115,14 +122,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               ))}
           </div>
 
-          <div className="p-8 pb-12 mt-auto border-t border-[var(--color-light-ash)]">
-            <button 
-              onClick={logout}
-              className="text-sm font-medium text-[var(--color-black)] hover:text-[var(--color-ash)] transition-all duration-300 uppercase tracking-widest flex items-center gap-2 group"
-            >
-              <LogOut className="w-4 h-4" />
-              Sign Out
-            </button>
+          <div className="p-8 mt-auto flex flex-col gap-6">
+            <Link href="/" className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase border border-[var(--color-light-ash)] rounded-lg px-4 py-2 hover:border-[var(--color-black)] hover:bg-[var(--color-black)] hover:text-[var(--color-white)] text-[var(--color-black)] transition-colors w-fit">
+              <ArrowLeft className="w-3 h-3" />
+              Back to Website
+            </Link>
           </div>
         </aside>
 
@@ -210,18 +214,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               </h1>
             </div>
             
-            <div className="flex items-center gap-6 h-full">
+            <div className="flex items-center gap-3 md:gap-6 h-full">
               {/* Utility Icons */}
-              <div className="hidden md:flex items-center gap-4 border-r border-[var(--color-light-ash)]/40 pr-6">
+              <div className="flex items-center gap-1 sm:gap-4 md:border-r border-[var(--color-light-ash)]/40 md:pr-6">
                 <ThemeToggle />
                 <button 
                   onClick={() => setIsCommandPaletteOpen(true)}
-                  className="p-2 text-[var(--color-black)] hover:bg-[var(--color-light-ash)]/50 transition-colors rounded-full relative group"
+                  className="hidden md:block p-2 text-[var(--color-black)] hover:bg-[var(--color-light-ash)]/50 transition-colors rounded-full relative group"
                   title="Search (Cmd+K)"
                 >
                   <Search className="w-5 h-5 group-hover:scale-110 transition-transform" />
                 </button>
-                <Link href="/admin/notifications" className="p-2 text-[var(--color-black)] hover:bg-[var(--color-light-ash)]/50 transition-colors rounded-full relative group">
+                <Link href="/admin/notifications" className="hidden md:block p-2 text-[var(--color-black)] hover:bg-[var(--color-light-ash)]/50 transition-colors rounded-full relative group">
                   <Bell className="w-5 h-5 group-hover:scale-110 transition-transform" />
                   <span className="absolute top-1.5 right-2 w-2 h-2 bg-red-500 rounded-full border border-[var(--color-white)]"></span>
                 </Link>
@@ -261,6 +265,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         isOpen={isCommandPaletteOpen} 
         onClose={() => setIsCommandPaletteOpen(false)} 
       />
+      </div>
     </AdminGuard>
   );
 }

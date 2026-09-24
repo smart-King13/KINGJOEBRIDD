@@ -27,7 +27,7 @@ export function CategoryCard({ title, desc, images, delay = 0 }: CategoryCardPro
   }, [images.length]);
 
   return (
-    <ScrollReveal direction="up" delay={delay} className="group cursor-pointer relative h-[450px] md:h-[600px] overflow-hidden bg-[var(--color-black)]">
+    <ScrollReveal direction="up" delay={delay} className="group cursor-pointer relative h-[400px] md:h-[500px] overflow-hidden bg-[var(--color-black)]">
       {/* Images */}
       {images.map((img, idx) => (
         <img 
@@ -48,12 +48,7 @@ export function CategoryCard({ title, desc, images, delay = 0 }: CategoryCardPro
       {/* Content Overlay */}
       <div className="absolute inset-x-0 bottom-0 p-8 md:p-12 flex flex-col justify-end translate-y-6 group-hover:translate-y-0 transition-transform duration-700 ease-out z-30">
         <h3 className="text-2xl md:text-3xl font-display tracking-widest text-white mb-3 uppercase">{title}</h3>
-        <p className="text-base text-white/70 font-light mb-8 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">{desc}</p>
-        
-        <div className="flex items-center gap-4">
-          <span className="text-xs font-bold tracking-widest text-white uppercase">Explore</span>
-          <div className="h-px w-8 bg-white group-hover:w-16 transition-all duration-700 ease-out" />
-        </div>
+        <p className="text-base text-white/70 font-light mb-2 opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">{desc}</p>
       </div>
     </ScrollReveal>
   );

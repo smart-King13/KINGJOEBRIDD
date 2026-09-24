@@ -93,9 +93,21 @@ export function StyleCard({ style }: StyleCardProps) {
         </button>
 
         <div className="absolute bottom-6 left-6 right-6 translate-y-8 opacity-0 transition-all duration-700 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-          <div className="inline-flex h-12 w-full items-center justify-center rounded-full bg-white/95 backdrop-blur-md px-4 text-xs font-bold uppercase tracking-widest text-[var(--color-black)] shadow-lg transition-colors hover:bg-white">
+          <button 
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              const imgUrl = primaryImage?.url || primaryImage?.storage_path || primaryImage?.file_path;
+              if (imgUrl) {
+                router.push(`/style-requests/new?external_style=${encodeURIComponent(imgUrl)}`);
+              } else {
+                router.push(`/style-requests/new?style_id=${style.id}`);
+              }
+            }}
+            className="inline-flex h-12 w-full items-center justify-center rounded-full bg-white/95 backdrop-blur-md px-4 text-xs font-bold uppercase tracking-widest text-[var(--color-black)] shadow-lg transition-colors hover:bg-white"
+          >
             I WANT THIS
-          </div>
+          </button>
         </div>
       </div>
 

@@ -73,7 +73,7 @@ export function AttachmentUploader({
 
   return (
     <div className={`space-y-4 ${className}`}>
-      <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4 w-full">
         <input
           type="file"
           ref={fileInputRef}
@@ -88,11 +88,11 @@ export function AttachmentUploader({
           variant="outline"
           onClick={() => fileInputRef.current?.click()}
           disabled={isUploading || attachments.length >= maxFiles}
-          className="border-[var(--color-ash)] text-[var(--color-black)] hover:bg-[var(--color-ash)]/10"
+          className="w-full sm:w-auto border-[var(--color-ash)] text-[var(--color-black)] hover:bg-[var(--color-ash)]/10"
         >
           {isUploading ? 'UPLOADING...' : 'ADD ATTACHMENT'}
         </Button>
-        <span className="text-xs text-[var(--color-ash)]">
+        <span className="text-xs text-[var(--color-ash)] text-center sm:text-left">
           {attachments.length} / {maxFiles} files (Max 10MB)
         </span>
       </div>

@@ -36,9 +36,10 @@ export function StyleHeroCarousel() {
             className={`absolute inset-0 flex items-center transition-opacity duration-1000 ease-in-out
               ${isRightSide ? 'justify-end pr-10 md:pr-32' : 'justify-start pl-10 md:pl-32'}
               ${isActive ? 'opacity-100' : 'opacity-0'}
+              -mt-16 md:-mt-24
             `}
           >
-            <div className="relative w-[80%] md:w-[50%] h-[80%]">
+            <div className="relative w-[80%] md:w-[50%] h-[85%]">
               <Image
                 src={src}
                 alt="Style Inspiration"

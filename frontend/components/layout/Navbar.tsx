@@ -20,7 +20,7 @@ export function Navbar() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  const isHiddenPage = pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/account') || pathname?.startsWith('/admin');
+  const isHiddenPage = pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/account') || pathname?.startsWith('/admin') || pathname?.startsWith('/style-requests');
 
   if (isHiddenPage) {
     return null;
@@ -61,8 +61,13 @@ export function Navbar() {
       <div className="container relative flex h-20 items-center justify-between">
         {/* Left Side: Logo */}
         <div className="flex z-10">
-          <Link href="/" className="flex items-center space-x-2">
-            <span className="inline-block font-display text-2xl font-bold tracking-widest text-[var(--color-black)]">
+          <Link href="/" className="flex items-center hover:opacity-80 transition-opacity">
+            <img 
+              src="/images/KJLOGO.png" 
+              alt="KINGJOEBRIDD Logo" 
+              className="object-contain h-16 sm:h-16 w-auto -mr-2 sm:-mr-3 scale-[1.35] origin-center" 
+            />
+            <span className="hidden sm:inline-block font-display text-lg sm:text-xl font-extrabold tracking-[0.2em] text-[var(--color-black)] ml-1 sm:ml-3">
               KINGJOEBRIDD
             </span>
           </Link>
@@ -78,20 +83,20 @@ export function Navbar() {
         </nav>
         
         {/* Right Side: Actions */}
-        <div className="flex items-center gap-4 z-10">
+        <div className="flex items-center gap-1 md:gap-4 z-10">
           <button 
             onClick={() => setIsSearchOpen(true)}
-            className="flex items-center gap-2 text-sm font-medium text-[var(--color-black)]/80 hover:text-[var(--color-black)] hidden md:flex transition-colors"
+            className="flex items-center gap-2 text-sm font-medium text-[var(--color-black)]/80 hover:text-[var(--color-black)] transition-colors p-2 md:p-0 rounded-full"
             aria-label="Open search"
           >
-            <Search className="w-4 h-4" />
-            Search
+            <Search className="w-5 h-5 md:w-4 md:h-4" />
+            <span className="hidden md:inline">Search</span>
           </button>
           
           <div className="h-4 w-px bg-[var(--color-ash)]/30 hidden md:block" />
           
           {isAuthenticated ? (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1 md:gap-4">
               <Link href={dashboardHref} className="flex items-center gap-2 text-sm font-medium text-[var(--color-black)]/80 hover:text-[var(--color-black)] hidden sm:flex transition-colors">
                 <User className="w-4 h-4" />
                 {user?.name || (user?.role === 'admin' ? 'Admin' : 'Account')}
@@ -147,16 +152,6 @@ export function Navbar() {
               </Link>
             );
           })}
-          <button 
-            onClick={() => {
-              setIsMobileMenuOpen(false);
-              setIsSearchOpen(true);
-            }}
-            className="flex items-center gap-4 text-[17px] font-medium text-[var(--color-black)] hover:bg-[var(--color-light-ash)]/30 rounded-xl p-3 transition-all md:hidden text-left w-full"
-          >
-            <Search className="w-5 h-5 text-[var(--color-ash)]" />
-            Search
-          </button>
         </nav>
         
         {isAuthenticated ? (

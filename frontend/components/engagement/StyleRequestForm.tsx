@@ -79,14 +79,21 @@ export function StyleRequestForm({ styleId, externalStyle }: { styleId?: string;
       )}
 
       {externalStyle && (
-        <div className="mb-6 p-4 rounded-2xl bg-[var(--color-ash)]/10 flex items-start gap-4">
+        <div className="mb-6 p-4 rounded-2xl bg-[var(--color-ash)]/10 flex flex-col sm:flex-row items-start gap-4">
           <div className="relative w-24 h-32 rounded-lg overflow-hidden flex-shrink-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={externalStyle} alt="Reference Style" className="w-full h-full object-cover" />
           </div>
-          <div>
+          <div className="flex-1">
             <h3 className="font-bold text-sm tracking-wider text-[var(--color-black)] mb-1">REFERENCE STYLE ATTACHED</h3>
-            <p className="text-xs text-[var(--color-ash)]">This image will be included with your request for the tailor to review.</p>
+            <p className="text-xs text-[var(--color-ash)] mb-3">This image will be included with your request for the tailor to review.</p>
+            <button 
+              type="button"
+              onClick={() => router.push('/style-requests/new')}
+              className="text-xs font-bold tracking-widest text-red-500 hover:text-red-700 uppercase transition-colors"
+            >
+              Remove Image
+            </button>
           </div>
         </div>
       )}

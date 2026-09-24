@@ -7,9 +7,6 @@ import { ScrollReveal } from '@/components/ui/ScrollReveal';
 
 const categories = [
   { id: 'all', name: 'All Styles' },
-  { id: 't-collection', name: 'Traditional & Asoebi' },
-  { id: 'm-collection', name: "Men's Native & Agbada" },
-  { id: 'w-collection', name: "Women's Couture & Power Suits" },
 ];
 
 export function PinterestFashionGrid() {
@@ -48,12 +45,12 @@ export function PinterestFashionGrid() {
     <div className="w-full">
       {/* Filter & Search Bar */}
       <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex overflow-x-auto items-center gap-3 pb-2 w-full md:flex-wrap md:w-auto md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
           {categories.map((category) => (
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`rounded-full px-6 py-2.5 text-xs tracking-[0.1em] font-medium uppercase transition-all duration-300 border ${
+              className={`shrink-0 rounded-full px-6 py-2.5 text-xs tracking-[0.1em] font-medium uppercase transition-all duration-300 border ${
                 activeCategory === category.id
                   ? 'bg-[var(--color-black)] text-white border-[var(--color-black)]'
                   : 'bg-transparent text-[var(--color-black)] border-[var(--color-ash)]/30 hover:border-[var(--color-black)]'

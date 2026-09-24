@@ -106,11 +106,32 @@
     outline: 2px solid var(--color-black);
     outline-offset: 2px;
   }
+
+  /* Fix tiny password dots by overriding the font just for the dots */
+  input[type="password"] {
+    font-family: Arial, Helvetica, sans-serif !important;
+    letter-spacing: 0.25em !important;
+    font-size: 1.125rem !important; /* Tailwind text-lg */
+  }
+
+  input[type="password"]::placeholder {
+    font-family: var(--font-sans) !important;
+    letter-spacing: normal !important;
+    font-size: 1rem !important;
+  }
 }
 
 @layer utilities {
   .container {
     @apply px-5 md:px-8 mx-auto w-full max-w-7xl;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
   }
 
   .motion-safe-transition {
@@ -154,14 +175,24 @@
   }
 
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0);
     }
-
     50% {
       transform: translateY(-5px);
+    }
+  }
+
+  @keyframes pan-image {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.15);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 
@@ -208,6 +239,10 @@
 
   .animate-float {
     animation: float 4s ease-in-out infinite;
+  }
+
+  .animate-pan-image {
+    animation: pan-image 30s ease-in-out infinite alternate;
   }
 
   /* Glassmorphism */

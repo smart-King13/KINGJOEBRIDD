@@ -106,7 +106,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ acti
   
   const res = NextResponse.json(data, { status: response.status });
   
-  if (response.status === 401) {
+  if (response.status !== 200) {
     res.cookies.set(COOKIE_NAME, '', {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

@@ -31,7 +31,7 @@ export default async function ExplorePage({
               linear-gradient(to right, var(--color-black) 0%, var(--color-black) 10%, transparent 40%),
               linear-gradient(to left, var(--color-black) 0%, var(--color-black) 10%, transparent 40%),
               linear-gradient(to bottom, var(--color-black) 0%, transparent 20%),
-              linear-gradient(to top, var(--color-black) 0%, var(--color-black) 15%, transparent 35%)
+              linear-gradient(to top, var(--color-black) 0%, var(--color-black) 25%, transparent 50%)
             `
           }}
         />

@@ -43,7 +43,7 @@ export async function apiClient<T>(endpoint: string, options: ApiOptions = {}): 
   };
 
   // Determine if this is an auth route (login/register/logout)
-  const authPrefixes = ['/login', '/register', '/logout'];
+  const authPrefixes = ['/login', '/register', '/logout', '/me'];
   const isAuthEndpoint = authPrefixes.some(
     prefix => endpoint === prefix || endpoint.startsWith(`${prefix}/`) || endpoint.startsWith(`${prefix}?`)
   );

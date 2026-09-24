@@ -28,7 +28,7 @@ export function Footer() {
     }, 5000);
   };
 
-  const isHiddenPage = pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/account') || pathname?.startsWith('/admin');
+  const isHiddenPage = pathname?.startsWith('/login') || pathname?.startsWith('/register') || pathname?.startsWith('/account') || pathname?.startsWith('/admin') || pathname?.startsWith('/style-requests');
 
   if (isHiddenPage) {
     return null;
@@ -45,7 +45,10 @@ export function Footer() {
           
           {/* Brand & Mission */}
           <div className="max-w-md flex flex-col items-center lg:items-start">
-            <h2 className="font-display text-2xl tracking-[0.3em] mb-6 uppercase">KingJoeBridd</h2>
+            <div className="flex items-center mb-6">
+              <img src="/images/KJLOGO.png" alt="KINGJOEBRIDD Logo" className="object-contain h-14 w-auto -mr-3" style={{ filter: "brightness(0) invert(1)" }} />
+              <h2 className="font-display text-2xl font-bold tracking-[0.2em] uppercase">KINGJOEBRIDD</h2>
+            </div>
             <p className="text-white/50 text-sm leading-relaxed font-light mb-8 lg:pr-8">
               A digital fashion house where inspiration becomes craftsmanship. Bespoke tailoring redefined for the modern connoisseur.
             </p>
